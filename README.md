@@ -32,3 +32,24 @@ Then query in Superset: `SELECT * FROM mongodb.testdb.products`
 - **Superset 3.0.0** ✅
 - **Trino 443** ✅  
 - **trino Python package** (includes SQLAlchemy support) ✅
+
+## Performance Testing with Locust
+
+### Install Locust
+```bash
+pip install locust
+```
+
+### Run Performance Tests
+```bash
+# Start Locust web interface
+locust -f test_superset.py --host=http://localhost:8088
+
+# Open http://localhost:8089 to configure and start tests
+```
+
+### Quick Automated Test
+```bash
+# Run 10 users for 2 minutes
+locust -f test_superset.py --host=http://localhost:8088 --users=10 --spawn-rate=2 --run-time=2m --headless
+```

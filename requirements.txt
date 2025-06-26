@@ -1,2 +1,3 @@
 pymongo==4.6.1
 yfinance==0.2.18
+locust
