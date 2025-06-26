@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN python -m pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-# Copy only the script from src
-COPY src/main.py ./
+# Copy only the script from main
+COPY src/main/main.py ./
 
 CMD ["python", "main.py"]

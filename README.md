@@ -43,7 +43,7 @@ pip install locust
 ### Run Performance Tests
 ```bash
 # Start Locust web interface
-locust -f test_superset.py --host=http://localhost:8088
+locust -f src/test/test_superset.py --host=http://localhost:8088
 
 # Open http://localhost:8089 to configure and start tests
 ```
