@@ -25,18 +25,39 @@ services:
     container_name: superset
     ports:
       - "8088:8088"
+    volumes:
+      - ./superset_config.py:/app/superset_config.py
     environment:
       - SUPERSET_SECRET_KEY=mysecretkey
+      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://superset:superset@superset_postgres:5432/superset
+      - PREVENT_UNSAFE_DB_CONNECTIONS=False
+      - SUPERSET_CONFIG_PATH=/app/superset_config.py
     depends_on:
       - trino
+      - postgres
     command: >
       bash -c "
-        pip install trino &&
+        pip install sqlalchemy-trino==0.5.0 trino==0.328.0 &&
         superset db upgrade &&
         superset fab create-admin --username admin --firstname Admin --lastname User --email admin@admin.com --password admin &&
         superset init &&
         superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
       "
+  
+
+  postgres:
+    image: postgres:13
+    container_name: superset_postgres
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+    ports:
+      - "5432:5432"       # <-- expose le port ici
+    volumes:
+      - superset_pgdata:/var/lib/postgresql/data
+
+
   data-generator:
     build: .
     container_name: data-generator
@@ -48,3 +69,4 @@ services:
 
 volumes:
   mongo_data:
+  superset_pgdata:
