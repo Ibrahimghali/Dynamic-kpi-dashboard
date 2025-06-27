@@ -26,7 +26,7 @@ services:
     ports:
       - "8088:8088"
     volumes:
-      - ./superset_config.py:/app/superset_config.py
+      - ./config/superset/superset_config.py:/app/superset_config.py
     environment:
       - SUPERSET_SECRET_KEY=mysecretkey
       - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://superset:superset@superset_postgres:5432/superset
