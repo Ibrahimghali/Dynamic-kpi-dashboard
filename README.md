@@ -4,36 +4,36 @@ This project provides a simple and scalable architecture to **connect Apache Sup
 
 ---
 
-## 🎯 Goal
+## Goal
 
 Allow teams to **visualize KPIs without writing Angular code** or deploying frontend components for each new metric.
 
 ---
 
-## ❗ Problem
+## Problem
 
 In the current setup, each KPI requires **manual creation of frontend code (Angular components)**, which:
 
-- Takes **~1 day per KPI**
-- Is **not scalable** as the number of metrics grows
-- Adds **maintenance overhead**
-- Makes **non-technical users dependent** on developers
+* Takes **\~1 day per KPI**
+* Is **not scalable** as the number of metrics grows
+* Adds **maintenance overhead**
+* Makes **non-technical users dependent** on developers
 
 ---
 
-## ✅ Solution
+## Solution
 
 A dynamic dashboard system where:
 
-- KPI metadata is stored in **MongoDB**
-- Data is queried using **Trino**
-- Dashboards are visualized via **Superset**
+* KPI metadata is stored in **MongoDB**
+* Data is queried using **Trino**
+* Dashboards are visualized via **Superset**
 
 This avoids writing frontend code for each KPI and supports quick configuration updates.
 
 ---
 
-## ⚙️ Architecture Overview
+## Architecture Overview
 
 ![Architecture Diagram](assets/architecture.png)
 
@@ -46,7 +46,7 @@ The architecture follows a simple data flow:
 
 ---
 
-## 🧾 Sample KPI Definition (Stored in MongoDB)
+## Sample KPI Definition (Stored in MongoDB)
 
 We can define KPIs as documents in a `kpis` collection like this:
 
@@ -71,7 +71,7 @@ Superset doesn't natively load visualizations from config files, but this archit
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 docker-compose up -d
@@ -79,7 +79,7 @@ docker-compose up -d
 
 ---
 
-## 🔗 Access Services
+## Access Services
 
 * Superset: [http://localhost:8088](http://localhost:8088) (`admin` / `admin`)
 * Trino UI: [http://localhost:8080](http://localhost:8080)
@@ -87,7 +87,7 @@ docker-compose up -d
 
 ---
 
-## 🔌 Connect Superset to MongoDB via Trino
+## Connect Superset to MongoDB via Trino
 
 ```text
 trino://trino@trino:8080/mongodb
@@ -97,7 +97,7 @@ Create a connection in Superset using the above URL.
 
 ---
 
-## 📦 Add Sample Data
+## Add Sample Data
 
 ```bash
 docker exec -it mongodb mongosh -u admin -p admin
@@ -116,7 +116,7 @@ SELECT * FROM mongodb.testdb.sales
 
 ---
 
-## 🧪 Load Testing with Locust
+## Load Testing with Locust
 
 ```bash
 pip install locust
@@ -129,7 +129,7 @@ locust -f test_superset.py --host=http://localhost:8088 --users=10 --spawn-rate=
 
 ---
 
-## ✅ Verified Versions
+## Verified Versions
 
 * Superset: `3.0.0`
 * Trino: `443`
@@ -137,12 +137,10 @@ locust -f test_superset.py --host=http://localhost:8088 --users=10 --spawn-rate=
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 * Create a **KPI definition admin panel** to manage `kpis` collection
 * Use Superset REST API to generate dashboards dynamically
 * Implement **user-role-based filtering** and isolation
 * Add support for **custom visualizations** based on config
-
----
 
