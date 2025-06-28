@@ -35,28 +35,14 @@ This avoids writing frontend code for each KPI and supports quick configuration 
 
 ## ⚙️ Architecture Overview
 
-```
+![Architecture Diagram](assets/architecture.png)
 
-    +--------------+        +-------------+        +------------------+
-    \|              |        |             |        |                  |
-    \|   Superset   +------->+   Trino     +------->+    MongoDB       |
-    \| (Dashboard)  | SQL    | (Query Engine)       | (KPI + Data)     |
-    +--------------+        +-------------+        +------------------+
-    ↑
-    |
-    \| Admin defines KPI layout via config (future step)
-    |
-    +------------------+
-    \| JSON or MongoDB  |
-    \| KPI definitions  |
-    +------------------+
+The architecture follows a simple data flow:
 
-````
-
-### 🖼️ Optional: You can replace the diagram above with an image like:
-```text
-/docs/architecture-diagram.png
-````
+1. **MongoDB** stores both KPI definitions and actual data
+2. **Trino** acts as a query engine, connecting to MongoDB
+3. **Superset** provides the dashboard interface, querying data via Trino
+4. **KPI Definitions** (JSON/MongoDB) will define dashboard layouts (future enhancement)
 
 ---
 
