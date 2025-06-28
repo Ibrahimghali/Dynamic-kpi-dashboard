@@ -1,4 +1,4 @@
-# MongoDB + Trino + Superset — Dynamic & Scalable Dashboarding
+# Dynamic & Scalable Dashboarding
 
 This project provides a simple and scalable architecture to **connect Apache Superset to MongoDB via Trino**, enabling **dynamic dashboards** based on data-driven KPI definitions.
 
