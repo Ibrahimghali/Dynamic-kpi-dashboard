@@ -5,6 +5,7 @@
 [![SonarQube Quality](https://img.shields.io/badge/SonarQube-Integrated-green.svg)](http://localhost:9000)
 [![Docker](https://img.shields.io/badge/Docker-Compose-blue.svg)](docker-compose.yml)
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](requirements.txt)
+[![GitLab CI](https://img.shields.io/badge/GitLab-CI%2FCD-orange.svg)](.gitlab-ci.yml)
 
 This project provides a **scalable microservices architecture** to connect **Apache Superset to MongoDB via Trino**, enabling **dynamic dashboards** without manual frontend coding.
 
@@ -76,7 +77,37 @@ docker-compose run --rm data-generator
 
 ---
 
-## 🔧 Configuration & Setup
+## � CI/CD Pipeline
+
+### **GitLab CI/CD Stages**
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  Validate   │───▶│    Test     │───▶│   Quality   │───▶│    Build    │───▶│   Deploy    │
+│ • Lint Code │    │ • Unit Tests│    │ • SonarQube │    │ • Docker    │    │ • Staging   │
+│ • Dockerfile│    │ • Integration│    │ • Coverage  │    │ • Registry  │    │ • Production│
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+```
+
+### **Pipeline Features**
+- ✅ **Automated Code Quality** - Linting, formatting, SonarQube analysis
+- ✅ **Comprehensive Testing** - Unit tests, integration tests, coverage reports
+- ✅ **Docker Image Building** - Automated image builds and registry push
+- ✅ **Multi-Environment Deployment** - Staging and production environments
+- ✅ **Performance Testing** - Locust-based load testing
+- ✅ **Manual Gates** - Production deployments require manual approval
+
+### **Required GitLab Variables**
+Set these in GitLab → Settings → CI/CD → Variables:
+```bash
+SONAR_HOST_URL=https://your-sonarqube-instance.com
+SONAR_TOKEN=your-sonarqube-token
+CI_REGISTRY_USER=your-registry-username
+CI_REGISTRY_PASSWORD=your-registry-password
+```
+
+---
+
+## �🔧 Configuration & Setup
 
 ### **Connect Superset to MongoDB**
 1. Go to Superset → Settings → Database Connections
@@ -219,6 +250,7 @@ docker-compose logs -f mongodb
 - [x] Sample data generation
 - [x] Docker containerization
 - [x] Code quality monitoring
+- [x] GitLab CI/CD pipeline
 
 ### **Phase 2** 🚧 (In Progress)
 - [ ] KPI Definition Admin Panel
