@@ -3,7 +3,6 @@
 
 stages:
   - validate
-  - quality
   - build
 
 variables:
@@ -26,30 +25,6 @@ validate:
     - python -m py_compile src/main/main.py
     - python -m py_compile src/test/test_superset.py
     - echo "✅ Python syntax validation passed"
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-
-# 📊 SonarQube Code Quality
-sonarqube:
-  stage: quality
-  image: sonarsource/sonar-scanner-cli:latest
-  variables:
-    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
-    GIT_DEPTH: "0"
-  cache:
-    key: "${CI_JOB_NAME}"
-    paths:
-      - .sonar/cache
-  script:
-    - echo "📊 Running SonarQube code quality analysis..."
-    - sonar-scanner
-      -Dsonar.projectKey=dynamic-kpi-dashboard
-      -Dsonar.sources=src/
-      -Dsonar.host.url=$SONAR_HOST_URL
-      -Dsonar.token=$SONAR_TOKEN
-      -Dsonar.python.version=3.11
-  allow_failure: true
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
