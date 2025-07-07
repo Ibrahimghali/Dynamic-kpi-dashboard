@@ -306,4 +306,23 @@ docker-compose run --rm sonar-scanner sonar-scanner
 | **Maintenance Overhead** | Manual | Automated | **Eliminated** |
 | **Scalability** | Limited | Unlimited | **∞ growth** |
 
+---
+
+## 🔒 Security Notice
+
+This repository contains only development configurations with default credentials. 
+
+**For production deployments:**
+- Change all default passwords in `docker-compose.yml`
+- Set secure `SUPERSET_SECRET_KEY` 
+- Use proper database credentials
+- Configure SonarQube token via `SONAR_TOKEN` environment variable
+- Review and update all security settings
+
+**Never commit:**
+- Production credentials
+- API keys or tokens
+- Personal access tokens
+- SSL certificates or private keys
+
 
