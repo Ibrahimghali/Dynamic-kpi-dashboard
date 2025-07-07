@@ -275,5 +275,4 @@ docker-compose run --rm sonar-scanner sonar-scanner
 | **Maintenance Overhead** | Manual | Automated | **Eliminated** |
 | **Scalability** | Limited | Unlimited | **∞ growth** |
 
-**Transform your analytics workflow today!** 🚀
 
