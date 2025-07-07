@@ -231,7 +231,6 @@ docker-compose logs -f mongodb
 - [ ] Machine learning integration
 - [ ] Multi-tenant support
 - [ ] Enterprise SSO integration
-
 ---
 
 ### **Development Setup**
