@@ -6,8 +6,10 @@ import random
 def populate_mongodb():
     """Generate simple data for MongoDB"""
     
-    # Connect to MongoDB
-    connection_string = os.getenv('MONGODB_URI', 'mongodb://admin:admin@mongodb:27017')
+    connection_string = os.getenv('MONGODB_URI')
+    if not connection_string:
+        raise ValueError("MONGODB_URI environment variable is required")
+    
     client = pymongo.MongoClient(connection_string)
     db = client['financial_data']
     
