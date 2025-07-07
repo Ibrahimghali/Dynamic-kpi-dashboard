@@ -1,0 +1,44 @@
+# Basic GitLab CI/CD Pipeline for Dynamic KPI Dashboard
+
+stages:
+  - test
+  - quality
+  - deploy
+
+# 🧪 Run Tests
+test:
+  stage: test
+  image: python:3.11-slim
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - echo "🧪 Running tests..."
+    - python -m pytest src/test/ -v
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# 📊 Code Quality Check
+sonarqube:
+  stage: quality
+  image: sonarsource/sonar-scanner-cli:latest
+  script:
+    - echo "📊 Running SonarQube analysis..."
+    - sonar-scanner
+      -Dsonar.projectKey=dynamic-kpi-dashboard
+      -Dsonar.sources=src/
+      -Dsonar.host.url=$SONAR_HOST_URL
+      -Dsonar.token=$SONAR_TOKEN
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# 🚀 Deploy
+deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "🚀 Deploying application..."
+    - echo "Deployment completed!"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - when: manual
